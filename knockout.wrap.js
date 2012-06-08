@@ -24,9 +24,9 @@
 
     // this function unwraps the outer for assigning the result to an observable
     // see https://github.com/SteveSanderson/knockout/issues/517
-    exports.fromJSUpdate = function(jsObject, computedFunctions)
+    exports.updateFromJS = function(observable, jsObject, computedFunctions)
     {
-	return wrap(jsObject, computedFunctions)();
+	return observable(wrap(jsObject, computedFunctions)());
     }
 
     exports.fromJSON = function (jsonString, computedFunctions) {
