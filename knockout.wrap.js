@@ -16,9 +16,17 @@
 	}
 }(function (ko, exports) {
     
+    // this function mimics ko.mapping
     exports.fromJS = function(jsObject, computedFunctions)
     {
 	return wrap(jsObject, computedFunctions);
+    }
+
+    // this function unwraps the outer for assigning the result to an observable
+    // see https://github.com/SteveSanderson/knockout/issues/517
+    exports.fromJSUpdate = function(jsObject, computedFunctions)
+    {
+	return wrap(jsObject, computedFunctions)();
     }
 
     exports.fromJSON = function (jsonString, computedFunctions) {
