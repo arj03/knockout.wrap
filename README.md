@@ -21,11 +21,11 @@ ko.mapping (fromJS, fromJSON, toJS and toJSON). The plugin can do
 simple mappings from JS to observables and the other way again.
 Because the code is much simpler it is super fast:
 
-ko.mapping.fromJS(500JSObjects): 737ms
-ko.wrap.fromJS(500JSObjects): 16ms
+    ko.mapping.fromJS(500JSObjects): 737ms
+    ko.wrap.fromJS(500JSObjects): 16ms
 
-ko.mapping.toJS(500WrappedObjects): 22ms
-ko.wrap.toJS(500WrappedObjects): 5ms 
+    ko.mapping.toJS(500WrappedObjects): 22ms
+    ko.wrap.toJS(500WrappedObjects): 5ms 
 
 Usage
 -----
