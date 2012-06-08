@@ -21,10 +21,10 @@ ko.mapping (fromJS, fromJSON, toJS and toJSON). The plugin can do
 simple mappings from JS to observables and the other way again.
 Because the code is much simpler it is super fast:
 
-ko.mappin.fromJS(500JSObjects): 737ms
+ko.mapping.fromJS(500JSObjects): 737ms
 ko.wrap.fromJS(500JSObjects): 16ms
 
-ko.mappin.toJS(500WrappedObjects): 22ms
+ko.mapping.toJS(500WrappedObjects): 22ms
 ko.wrap.toJS(500WrappedObjects): 5ms 
 
 Usage
@@ -32,12 +32,12 @@ Usage
 
 Basic use cases:
 
-    var observable = ko.mappin.fromJS(JSObjects);
+    var observable = ko.wrap.fromJS(JSObjects);
 
-    var jsObjects = ko.mappin.toJS(observable);
+    var jsObjects = ko.wrap.toJS(observable);
 
 Please note that if you are updating an observable, then it's
-preferable to use ko.updateFromJS(observable, jsObject).
+preferable to use ko.wrap.updateFromJS(observable, jsObject).
 
 ko.mapping can attach computed functions while it is wrapping. ko.wrap
 can do this as well, the syntax is a bit different:
