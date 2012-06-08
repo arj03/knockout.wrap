@@ -30,9 +30,11 @@ ko.wrap.toJS(500WrappedObjects): 5ms
 Usage
 -----
 
-   var observable = ko.mappin.fromJS(JSObjects);
+Basic use cases:
 
-   var jsObjects = ko.mappin.toJS(observable);
+    var observable = ko.mappin.fromJS(JSObjects);
+
+    var jsObjects = ko.mappin.toJS(observable);
 
 Please note that if you are updating an observable, then it's
 preferable to use ko.updateFromJS(observable, jsObject).
