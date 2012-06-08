@@ -26,7 +26,7 @@
     // see https://github.com/SteveSanderson/knockout/issues/517
     exports.updateFromJS = function(observable, jsObject, computedFunctions)
     {
-	return observable(wrap(jsObject, computedFunctions)());
+	return observable(ko.utils.unwrapObservable(wrap(jsObject, computedFunctions)));
     }
 
     exports.fromJSON = function (jsonString, computedFunctions) {
