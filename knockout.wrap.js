@@ -19,6 +19,7 @@
     // this function mimics ko.mapping
     exports.fromJS = function(jsObject, computedFunctions)
     {
+        reset();
 	return wrap(jsObject, computedFunctions);
     }
 
@@ -26,6 +27,7 @@
     // see https://github.com/SteveSanderson/knockout/issues/517
     exports.updateFromJS = function(observable, jsObject, computedFunctions)
     {
+        reset();
 	return observable(ko.utils.unwrapObservable(wrap(jsObject, computedFunctions)));
     }
 
@@ -122,25 +124,34 @@
 	    }
 	}
     }
-    
 
+    function reset()
+    {
+        parents = [{obj: null, wrapped: null, lvl: ""}];
+    }    
+    
     // wrapping
 
     function wrapObject(o, computedFunctions)
     {
+        // check for infinite recursion
+        for (var i = 0; i < parents.length; ++i) {
+            if (parents[i].obj === o) {
+                return parents[i].wrapped;
+            }
+        }
+
 	var t = {};
 
 	for (var k in o)
 	{
 	    var v = o[k];
 
-	    if (computedFunctions)
-		lvl.push(currentLvl() + "/" + k);
+            parents.push({obj: o, wrapped: t, lvl: currentLvl() + "/" + k});
 
 	    t[k] = wrap(v, computedFunctions);
 
-	    if (computedFunctions)
-		lvl.pop();
+            parents.pop();
 	}
 
 	if (computedFunctions && computedFunctions[currentLvl()])
@@ -162,11 +173,14 @@
 	return r;
     }
 
-    var lvl = [""];
+    // a stack, used for two purposes:
+    //  - circular reference checking
+    //  - computed functions
+    var parents;
 
     function currentLvl()
     {
-	return lvl[lvl.length-1];
+	return parents[parents.length-1].lvl;
     }
 
     function wrap(v, computedFunctions)
