@@ -47,9 +47,9 @@ can do this as well, the syntax is a bit different:
         var t = {elements: []};
 
         for (var i = 0; i < 500; ++i)
-	   t.elements.push({id: i, name: "hello" + i});
+           t.elements.push({id: i, name: "hello" + i});
 
-	return t;
+        return t;
     }
 
     var computedFunctions = {
@@ -62,3 +62,8 @@ can do this as well, the syntax is a bit different:
     };
 
     ko.wrap.fromJS(t, computedFunctions);
+
+License
+-------
+
+MIT license - http://www.opensource.org/licenses/mit-license.php
