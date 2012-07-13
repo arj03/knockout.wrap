@@ -66,6 +66,13 @@ $(document).ready(function() {
         ok(typeof wrapped.DateObject === 'function' && wrapped.DateObject() === date, 'Date value preserved');
     });
 
+    test("toJS date property", function() {
+        var date = new Date();
+        var unwrapped = ko.wrap.toJS({ 'DateObject': date });
+
+        ok(unwrapped.DateObject === date, 'Date value preserved');
+    });
+
     test("cyclic test", function() {  
         var data = cyclicData();
         var wrapped = ko.wrap.fromJS(data);

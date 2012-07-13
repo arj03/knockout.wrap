@@ -114,7 +114,7 @@
 	    {
 		return unwrapArray(v);
 	    }
-	    else if (typeOf(v) == "object")
+	    else if (typeOf(v) == "object" && v.constructor != Date)
 	    {
 		return unwrapObject(v);
 	    }
