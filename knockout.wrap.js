@@ -50,9 +50,10 @@
 	var s = typeof value;
 	if (s === 'object') {
             if (value) {
-		if (Object.prototype.toString.call(value) == '[object Array]') {
+                if (value.constructor == Date)
+                    s = 'date';
+		else if (Object.prototype.toString.call(value) == '[object Array]')
                     s = 'array';
-		}
             } else {
 		s = 'null';
             }
@@ -114,7 +115,7 @@
 	    {
 		return unwrapArray(v);
 	    }
-	    else if (typeOf(v) == "object" && v.constructor != Date)
+	    else if (typeOf(v) == "object")
 	    {
 		return unwrapObject(v);
 	    }
@@ -189,7 +190,7 @@
 	{
 	    return wrapArray(v, computedFunctions);
 	}
-	else if (typeOf(v) == "object" && v.constructor != Date)
+	else if (typeOf(v) == "object")
 	{
 	    return wrapObject(v, computedFunctions);
 	}
