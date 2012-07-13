@@ -57,6 +57,15 @@ $(document).ready(function() {
         notDeepEqual(wrapped.elements()[340].data.name(), "hello341");
     });
 
+    test("fromJS date property", function() {
+        var date = new Date();
+        var withDate = { 'DateObject': date };
+        var wrapped = ko.wrap.fromJS(withDate);
+
+        ok(ko.isObservable(wrapped.DateObject), 'Property is observable');
+        ok(typeof wrapped.DateObject === 'function' && wrapped.DateObject() === date, 'Date value preserved');
+    });
+
     test("cyclic test", function() {  
         var data = cyclicData();
         var wrapped = ko.wrap.fromJS(data);
