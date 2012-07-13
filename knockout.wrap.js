@@ -37,12 +37,12 @@
 	return exports.fromJS.apply(this, computedFunctions);
     };
     
-    exports.toJS = function (jsObject) {
-	return unwrap(jsObject);
+    exports.toJS = function (observable) {
+	return unwrap(observable);
     }
 
-    exports.toJSON = function (jsObject) {
-	var plainJavaScriptObject = exports.toJS(jsObject);
+    exports.toJSON = function (observable) {
+	var plainJavaScriptObject = exports.toJS(observable);
 	return ko.utils.stringifyJson(plainJavaScriptObject);
     };
 

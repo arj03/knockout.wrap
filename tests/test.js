@@ -73,6 +73,43 @@ $(document).ready(function() {
         ok(unwrapped.DateObject === date, 'Date value preserved');
     });
 
+    test("toJS", function() {
+        var t = ko.observableArray([ko.observable({'test':1})]);
+        var unwrapped = ko.wrap.toJS(t);
+
+        deepEqual(unwrapped[0].test, 1);
+
+        t = ko.observable(1);
+        unwrapped = ko.wrap.toJS(t);
+
+        deepEqual(unwrapped, 1);
+
+        t = ko.observable({a: 1, b: 2});
+        unwrapped = ko.wrap.toJS(t);
+
+        deepEqual(unwrapped.a, 1);
+        deepEqual(unwrapped.b, 2);
+    });
+
+    test("toJSON", function() {
+        var t = ko.observableArray([ko.observable({'test':1})]);
+        var unwrapped = ko.wrap.toJSON(t);
+
+        deepEqual(unwrapped, '[{"test":1}]');
+
+        t = ko.observable(1);
+        unwrapped = ko.wrap.toJSON(t);
+
+        deepEqual(unwrapped, '1');
+
+        t = ko.observable({a: 1, b: 2});
+        unwrapped = ko.wrap.toJSON(t);
+
+        console.log(unwrapped);
+
+        deepEqual(unwrapped, '{"a":1,"b":2}');
+    });
+
     test("cyclic test", function() {  
         var data = cyclicData();
         var wrapped = ko.wrap.fromJS(data);
