@@ -189,7 +189,7 @@
 	{
 	    return wrapArray(v, computedFunctions);
 	}
-	else if (typeOf(v) == "object")
+	else if (typeOf(v) == "object" && v.constructor != Date)
 	{
 	    return wrapObject(v, computedFunctions);
 	}
