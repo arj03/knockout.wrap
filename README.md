@@ -6,7 +6,7 @@ Motivation
 
 The performance of ko.mapping.fromJS(JSObject) is very slow. A simple
 test wrapping 500 simple elements takes 700ms in firefox. This seems
-to be a [known issue](http://daringfireball.net/projects/markdown/),
+to be a [known issue](https://groups.google.com/forum/#!msg/knockoutjs/NuKs_tawI2M/Mw3HAaXSv60J),
 that is still there.
 
 Futhermore I don't have the need for ko.mappings ability to find out
