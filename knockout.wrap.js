@@ -158,6 +158,9 @@
 	if (computedFunctions && computedFunctions[currentLvl()])
 	    t = computedFunctions[currentLvl()](t);
 
+        if (hasES5Plugin())
+            ko.track(t);
+
 	return t;
     }
 
@@ -196,9 +199,18 @@
 	}
 	else
 	{
-	    var t = ko.observable();
-	    t(v);
-	    return t;
+            if (!hasES5Plugin())
+            {
+	        var t = ko.observable();
+	        t(v);
+	        return t;
+            } else
+                return v;
 	}
+    }
+
+    function hasES5Plugin()
+    {
+        return ko.track != null;
     }
 }));
