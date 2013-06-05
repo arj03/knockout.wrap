@@ -105,8 +105,6 @@ $(document).ready(function() {
         t = ko.observable({a: 1, b: 2});
         unwrapped = ko.wrap.toJSON(t);
 
-        console.log(unwrapped);
-
         deepEqual(unwrapped, '{"a":1,"b":2}');
     });
 
