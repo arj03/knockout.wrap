@@ -100,14 +100,7 @@
 	{
 	    var val = v();
 
-	    if (typeOf(val) == "array")
-	    {
-		return unwrapArray(val);
-	    }
-	    else
-	    {
-		return val;
-	    }
+	    return unwrap(val);
 	}
 	else
 	{
