@@ -73,6 +73,21 @@ $(document).ready(function() {
         ok(unwrapped.DateObject === date, 'Date value preserved');
     });
 
+    test("toJS complex object", function() {
+        var model = {
+            prop: ko.observable({
+                arr: ko.observableArray(['a', 'b', 'c']),
+                val: ko.observable('val')
+            }),
+            arr2: ko.observableArray(['a', 'b', 'c'])
+        };
+
+        var unwrapped = ko.wrap.toJS(model);
+
+        ok(unwrapped.prop.arr[1], model.prop().arr()[1], 'Multi level array');
+        ok(unwrapped.prop.val === model.prop().val(), 'Multi level value');
+    });
+
     test("toJS", function() {
         var t = ko.observableArray([ko.observable({'test':1})]);
         var unwrapped = ko.wrap.toJS(t);
