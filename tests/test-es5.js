@@ -72,6 +72,14 @@ $(document).ready(function() {
         ok(typeof wrapped.DateObject === 'object' && wrapped.DateObject === date, 'Date value preserved');
     });
 
+    test("fromJS with functions", function() {
+        var withFunction = { 'func': function() { return 2; } };
+        var wrapped = ko.wrap.fromJS(withFunction);
+
+        ok(!ko.isObservable(wrapped.func), 'Function should not be made observable');
+        ok(typeof wrapped.func === 'function' && wrapped.func() === 2, 'Function is preserved');
+    });
+
     test("toJS date property", function() {
         var date = new Date();
         var unwrapped = ko.wrap.toJS({ 'DateObject': date });
