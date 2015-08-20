@@ -17,24 +17,24 @@
 }(function (ko, exports) {
     
     // this function mimics ko.mapping
-    exports.fromJS = function(jsObject, computedFunctions, observableObjects)
+    exports.fromJS = function(jsObject, computedFunctions)
     {
         reset();
-	return wrap(jsObject, computedFunctions, observableObjects);
+	return wrap(jsObject, computedFunctions);
     }
 
     // this function unwraps the outer for assigning the result to an observable
     // see https://github.com/SteveSanderson/knockout/issues/517
-    exports.updateFromJS = function(observable, jsObject, computedFunctions, observableObjects)
+    exports.updateFromJS = function(observable, jsObject, computedFunctions)
     {
         reset();
-	return observable(ko.utils.unwrapObservable(wrap(jsObject, computedFunctions, observableObjects)));
+	return observable(ko.utils.unwrapObservable(wrap(jsObject, computedFunctions)));
     }
 
-    exports.fromJSON = function (jsonString, computedFunctions, observableObjects) {
+    exports.fromJSON = function (jsonString, computedFunctions) {
 	var parsed = ko.utils.parseJson(jsonString);
 	arguments[0] = parsed;
-	return exports.fromJS.apply(this, computedFunctions, observableObjects);
+	return exports.fromJS.apply(this, computedFunctions);
     };
     
     exports.toJS = function (observable) {
@@ -126,7 +126,7 @@
     
     // wrapping
 
-    function wrapObject(o, computedFunctions, observableObjects)
+    function wrapObject(o, computedFunctions)
     {
         // check for infinite recursion
         for (var i = 0; i < parents.length; ++i) {
@@ -143,7 +143,7 @@
 
             parents.push({obj: o, wrapped: t, lvl: currentLvl() + "/" + k});
 
-	    t[k] = wrap(v, computedFunctions, observableObjects);
+	    t[k] = wrap(v, computedFunctions);
 
             parents.pop();
 	}
@@ -154,11 +154,10 @@
         if (hasES5Plugin())
             ko.track(t);
 
-	if (observableObjects) return ko.observable(t);
 	return t;
     }
 
-    function wrapArray(a, computedFunctions, observableObjects)
+    function wrapArray(a, computedFunctions)
     {
 	var r = ko.observableArray();
 
@@ -166,7 +165,7 @@
 	    return r;
 
 	for (var i = 0, l = a.length; i < l; ++i)
-	    r.push(wrap(a[i], computedFunctions, observableObjects));
+	    r.push(wrap(a[i], computedFunctions));
 
 	return r;
     }
@@ -181,15 +180,15 @@
 	return parents[parents.length-1].lvl;
     }
 
-    function wrap(v, computedFunctions, observableObjects)
+    function wrap(v, computedFunctions)
     {
 	if (typeOf(v) == "array")
 	{
-	    return wrapArray(v, computedFunctions, observableObjects);
+	    return wrapArray(v, computedFunctions);
 	}
 	else if (typeOf(v) == "object")
 	{
-	    return wrapObject(v, computedFunctions, observableObjects);
+	    return wrapObject(v, computedFunctions);
 	}
 	else
 	{
