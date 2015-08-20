@@ -192,7 +192,7 @@
 	}
 	else
 	{
-            if (!hasES5Plugin())
+            if (!hasES5Plugin() && typeof v !== 'function')
             {
 	        var t = ko.observable();
 	        t(v);
