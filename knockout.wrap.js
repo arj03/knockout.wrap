@@ -1,4 +1,4 @@
-// Knockout Fast Mapping v0.1
+// Knockout Fast Mapping v1.0.2
 // License: MIT (http://www.opensource.org/licenses/mit-license.php)
 
 (function(factory) {

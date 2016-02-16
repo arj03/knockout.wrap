@@ -1,6 +1,6 @@
 {
   "name": "knockout.wrap",
-  "version": "0.0.1",
+  "version": "1.0.2",
   "description": "Simple fast js to ko and ko to js mapper",
   "main": "knockout.wrap.js",
   "author": "Anders Rune Jensen",
