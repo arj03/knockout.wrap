@@ -1,0 +1,22 @@
+{
+  "name": "knockout.wrap",
+  "description": "Simple fast js to ko and ko to js mapper",
+  "main": "knockout.wrap.js",
+  "authors": [
+    "Anders Rune Jensen"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "knockout",
+    "mapping",
+    "wrap",
+    "fast"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests",
+    "*.nupkg"
+  ]
+}
