@@ -35,6 +35,7 @@ Basic use cases:
     var observable = ko.wrap.fromJS(JSObjects);
 
     var jsObjects = ko.wrap.toJS(observable);
+    var jsObjects = ko.wrap.toJS(observable, { includeComputed: true, ignore: ['__ko_mapping__', 'someProp'] });
 
 Please note that if you are updating an observable, then it's
 preferable to use ko.wrap.updateFromJS(observable, jsObject).
