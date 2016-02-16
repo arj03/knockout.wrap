@@ -32,11 +32,13 @@
         return exports.fromJS.apply(this, computedFunctions);
     };
 
-    exports.toJS = function(observable) {
-        return unwrap(observable);
+    exports.toJS = function (observable, options) {
+        var defaultOptions = { ignore: ['__ko_mapping__'], includeComputed: false };
+        options = ko.utils.extend(defaultOptions, options);
+        return unwrap(observable, options);
     };
-    exports.toJSON = function(observable) {
-        var plainJavaScriptObject = exports.toJS(observable);
+    exports.toJSON = function (observable, options) {
+        var plainJavaScriptObject = exports.toJS(observable, options);
         return ko.utils.stringifyJson(plainJavaScriptObject);
     };
 
@@ -56,45 +58,48 @@
     }
 
     // unwrapping
-    function unwrapObject(o) {
+    function unwrapObject(o, opts) {
+        var ignore = opts && opts.ignore ? opts.ignore : [];
+        var includeComputed = opts && opts.includeComputed;
         var t = {};
 
         for (var k in o) {
             var v = o[k];
 
-            if (ko.isComputed(v))
+            // ignore properties in the ignore array and computed observables if includeComputed is false
+            if ((ko.isComputed(v) && !includeComputed) || ignore.indexOf(k) !== (-1))
                 continue;
 
-            t[k] = unwrap(v);
+            t[k] = unwrap(v, opts);
         }
 
         return t;
     }
 
-    function unwrapArray(a) {
+    function unwrapArray(a, opts) {
         var r = [];
 
         if (!a || a.length == 0)
             return r;
 
         for (var i = 0, l = a.length; i < l; ++i)
-            r.push(unwrap(a[i]));
+            r.push(unwrap(a[i], opts));
 
         return r;
     }
 
-    function unwrap(v) {
+    function unwrap(v, opts) {
         var isObservable = ko.isObservable(v);
 
         if (isObservable) {
             var val = v();
 
-            return unwrap(val);
+            return unwrap(val, opts);
         } else {
             if (typeOf(v) == "array") {
-                return unwrapArray(v);
+                return unwrapArray(v, opts);
             } else if (typeOf(v) == "object") {
-                return unwrapObject(v);
+                return unwrapObject(v, opts);
             } else {
                 return v;
             }
